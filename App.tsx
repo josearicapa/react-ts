@@ -1,16 +1,26 @@
 import * as React from 'react';
-import { Counter } from './Counter';
-import { TaskList } from './src/TaskList';
 import './style.css';
 
-export default function App() {
-  const task = [
-    { title: 'Item 1 ', complete: false },
-    { title: 'Item 2 ', complete: false },
-  ];
+const ThemeContext = React.createContext('light');
+
+const ThemeToggle = () => {
+  const theme = React.useContext(ThemeContext);
+
   return (
     <React.Fragment>
-      <TaskList tasks={task} />
+      <button>Toggle Theme: {theme} </button>
+    </React.Fragment>
+  );
+};
+
+export default function App() {
+  const [theme, setTheme] = React.useState('light');
+  return (
+    <React.Fragment>
+      <ThemeContext.Provider value={theme}>
+        <ThemeToggle />
+      </ThemeContext.Provider>
+      <button onClick={() => setTheme('Dark')}>Change</button>
     </React.Fragment>
   );
 }
